@@ -1,0 +1,5 @@
+slack-monday-bot/
+  ├─ server.py
+  ├─ requirements.txt
+  ├─ Procfile
+  └─ README.md
