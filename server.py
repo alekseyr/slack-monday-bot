@@ -34,7 +34,9 @@ def send_monday_message():
         return
 
     next_mon = get_next_monday()
-    text = f"Напоминание: следующий понедельник — *{next_mon.strftime('%d.%m.%Y')}* :calendar:"
+    # ТЕКСТ ПО ТВОЕМУ ТЗ:
+    # for @agg_backend grooming [дата следующего понедельника]
+    text = f"for @agg_backend grooming {next_mon.strftime('%d.%m.%Y')}"
 
     try:
         resp = client.chat_postMessage(channel=SLACK_CHANNEL, text=text)
@@ -48,7 +50,8 @@ def seconds_until_next_run(target_weekday: int, hour: int, minute: int):
     Сколько секунд до следующего запуска:
     target_weekday: 0=понедельник, 6=воскресенье
     """
-    now = datetime.utcnow()  # Railway обычно работает в UTC
+    # Railway обычно живёт в UTC
+    now = datetime.utcnow()
     today_weekday = now.weekday()
 
     days_ahead = (target_weekday - today_weekday) % 7
@@ -67,11 +70,10 @@ def scheduler_loop():
     Фоновый планировщик:
     раз в неделю (по расписанию) отправляет сообщение.
     """
-    # НАСТРОЙКА РАСПИСАНИЯ:
-    # 0=понедельник ... 4=пятница, 6=воскресенье
-    TARGET_WEEKDAY = 0     # 4 = пятница
-    TARGET_HOUR = 13       # час (UTC)
-    TARGET_MINUTE = 0      # минута
+    # ✅ КАЖДЫЙ ПОНЕДЕЛЬНИК В 12:35 (UTC)
+    TARGET_WEEKDAY = 0     # 0 = понедельник
+    TARGET_HOUR = 9       # 12 часов
+    TARGET_MINUTE = 35     # 35 минут
 
     while True:
         wait_sec = seconds_until_next_run(TARGET_WEEKDAY, TARGET_HOUR, TARGET_MINUTE)
