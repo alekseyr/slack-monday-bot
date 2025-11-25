@@ -69,8 +69,8 @@ def scheduler_loop():
     """
     # НАСТРОЙКА РАСПИСАНИЯ:
     # 0=понедельник ... 4=пятница, 6=воскресенье
-    TARGET_WEEKDAY = 4     # 4 = пятница
-    TARGET_HOUR = 10       # час (UTC)
+    TARGET_WEEKDAY = 0     # 4 = пятница
+    TARGET_HOUR = 13       # час (UTC)
     TARGET_MINUTE = 0      # минута
 
     while True:
